@@ -1,18 +1,17 @@
 module Library where
-import PdePreludat
 import GHC.Num (Num)
 
 data Hechiceros = Hechiceros {
     nombre :: String,
-    experiencia :: Number,
+    experiencia :: Int,
     clan :: String,
-    grado :: Number
+    grado :: Int
 }deriving (Show)
 
-exp :: Hechiceros-> String
+expe :: Hechiceros-> String
 preparado :: [Hechiceros]-> String
 s_grado :: Hechiceros -> Hechiceros
-prestigioso :: Hechiceros -> String
+prestigioso :: Hechiceros -> Bool
 
 nobara = Hechiceros {
     nombre = "Nobara",
@@ -41,15 +40,13 @@ yuji = Hechiceros {
     grado= 1
 }
 equipo = [yuji, maki, satoru, nobara]
-
-exp hechicero | experiencia hechicero>1 = "Tiene experiencia"
-exp hechicero | experiencia hechicero<1 = "Es un pichon"
+clanesPrestigiosos=["Zenin","Gojo","Kamo"]
+expe hechicero | experiencia hechicero>1 = "Tiene experiencia"
+expe hechicero | experiencia hechicero<1 = "Es un pichon"
 
 preparado equipo | length equipo >= 3 = "Esta preparado"
 preparado equipo | length equipo < 3 = "No esta preparado"
 
-s_grado hechicero = nombre hechicero{nombre:nombre hechicero,experiencia:experiencia hechicero,clan: clan hechicero,grado: grado hechicero-1}
+s_grado hechicero = hechicero{nombre=nombre hechicero,experiencia=experiencia hechicero,clan=clan hechicero,grado= grado hechicero-1}
 
-prestigioso hechicero | clan hechicero =="Zenin"="Es prestigioso"
-prestigioso hechicero | clan hechicero =="Gojo"="Es prestigioso"
-prestigioso hechicero | clan hechicero =="Kamo"="Es prestigioso"
+prestigioso hechicero = elem (clan hechicero) clanesPrestigiosos
